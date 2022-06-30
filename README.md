@@ -1,4 +1,4 @@
-# FrontEnd for ReactiveWebSpringSecurity
+# FrontEnd for Reactive-Web_BulletinBoard-BackEnd
 
 Utilizes: React.js, jwt Token based login system 
 
