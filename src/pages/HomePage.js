@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import api from '../api/baseURL';
 import axios from 'axios';
 import Posts from './components/Posts';
+import Navbar from './components/Navbar';
 
 
 function HomePage() {
@@ -18,15 +19,57 @@ function HomePage() {
 
   }
 
+  const [posts, setPosts] = useState([]);
+  const [commentPopup, setCommentPopup] = useState(false);
+  const [postPopup, setPostPopup] = useState(false);
+  const [followPopup, setFollowPopup] = useState(false);
+  const [followedPopup, setFollowedPopup] = useState(false);
+  const [followed, setFollowed] = useState([])
+
+  function buttonPress() {
+    console.log("Button pressed.")
+  }
+
+  
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        var yourURL = "http://localhost:9090/v1/isPublic";
+        const response = await axios.get("http://localhost:9090/v1/isPublic")
+        setPosts(response.data)
+      } catch (err) {
+        console.log(err.response.data)
+      }
+
+      try {
+        const response1 = await axios.get(`http://localhost:9090/v1/friends/${activeUser}`)
+        setFollowed(response1.data)
+      } catch (err) {
+        console.log(err.response.data)
+      }
+    }
+    fetchItems();
+  }, [])
+
 
     return (
       <div>
-        <div class="card">
-          <h1> Home Page </h1>
-          <h3>Logged in as: {activeUser} </h3>
-        </div>
-        <div class="card" onClick={() => logout()}><h4>Log out</h4></div>
-         <Posts activeUser={activeUser}/>
+        <Navbar activeUser={activeUser} logout={logout} setPostPopup={setPostPopup} setFollowPopup={setFollowPopup} setFollowedPopup={setFollowedPopup} buttonPress={buttonPress}/>
+         <Posts activeUser={activeUser} 
+        posts={posts}
+        setPosts={setPosts}
+        commentPopup={commentPopup}
+        setCommentPopup={setCommentPopup}
+        postPopup={postPopup}
+        setPostPopup={setPostPopup}
+        followPopup={followPopup}
+        setFollowPopup={setFollowPopup}
+        followedPopup={followedPopup}
+        setFollowedPopup={setFollowedPopup}
+        followed={followed}
+        setFollowed={setFollowed}
+        />
       </div>
     );
   }

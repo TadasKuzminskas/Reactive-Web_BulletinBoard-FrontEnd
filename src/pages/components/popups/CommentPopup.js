@@ -18,6 +18,10 @@ function CommentPopup(props) {
             username: props.activeUser,
             post: props.postId
         }
+
+
+        console.log("comment button pressed.")
+
         props.setTrigger(false)
         axios.post("http://localhost:9090/v1/comment", commentToPost).then(
             props.setCommentsMap([...props.commentsMap, commentToPost])

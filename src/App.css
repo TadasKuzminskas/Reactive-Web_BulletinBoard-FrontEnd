@@ -46,6 +46,95 @@ body {
   flex-wrap: wrap;
 }
 
+.navbar {
+  background: white;
+  width: 320px;
+  height: 60px;
+  margin: 10px;
+  border-radius: 15px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.navbar-image {
+  height: 40px;
+  margin-bottom: 15px;
+  background-size: cover;
+  position: absolute;
+  top: 20px;
+  left: 25px;
+}
+
+.navbar-text-logo {
+  height: 50px;
+  color: black;
+  position: absolute;
+  left: 100px;
+  border-radius: 0px;
+  padding: 0%;
+  margin: 6px
+}
+
+.navbar-text-loggedIn {
+  height: 50px;
+  color: black;
+  position: absolute;
+  right: 120px;
+  border-radius: 0px;
+  padding: 0%;
+  margin: 17px
+}
+
+.navbar-button-logout {
+  color: black;
+  width: 100px;
+  position: absolute;
+  right: 10px;
+  border-radius: 0px;
+  padding: 0%;
+  margin: 15px;
+  background-color: white;
+  color : black;
+  display: block;
+  text-align: center;
+  border: 1px solid #282c34;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.navbar-button-newpost {
+  color: black;
+  width: 100px;
+  position: absolute;
+  left: 320px;
+  border-radius: 0px;
+  padding: 0%;
+  margin: 16px;
+  background-color: white;
+  color : black;
+  display: block;
+  text-align: center;
+  border: 1px solid #282c34;
+  border-radius: 17px;
+  cursor: pointer;
+}
+
+.navbar-button-newpost:hover {
+  background-color:orange;
+  color: black;
+  cursor: pointer;
+  transform: scale(1.03);
+  transition: all 0.5s ease;
+}
+
+.navbar-button-logout:hover {
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  transform: scale(1.03);
+  transition: all 0.5s ease;
+}
+
 .card {
   background: white;
   width: 320px;
@@ -53,9 +142,7 @@ body {
   border-radius: 15px;
 }
 
-.card-image {
-  background-color: aqua;
-  
+.card-image { 
   width: 318px;
   margin-bottom: 15px;
   background-size: cover;
@@ -77,6 +164,35 @@ body {
   display: block;
   text-align: center;
   margin: 20px 50px;
+  border-radius: 15px;
+}
+
+.add-button {
+  background-color: green;
+  height: 10px;
+  color: white;
+  padding: 5px 13px;
+  position: relative;
+  left: 40px;
+  top: 5px;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.add-button:hover {
+  background-color: orange;
+  color: black;
+  cursor: pointer;
+  transform: scale(1.03);
+  transition: all 0.5s ease;
+}
+
+.add-selection {
+  margin: 7px;
+  padding: 10px 40px;
+  background-color: antiquewhite;
+  color:rgb(27, 27, 27);
+  border: 1px solid #282c34;
   border-radius: 15px;
 }
 

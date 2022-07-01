@@ -7,6 +7,7 @@ function PostPopup(props) {
 
     const [postContent, setPostContent] = useState("");
     const [postName, setPostName] = useState("");
+    const [postImage, setPostImage] = useState("")
     const [isPublic, setIsPublic] = useState(true)
 
     function handlePostContentChange(event) {
@@ -15,6 +16,10 @@ function PostPopup(props) {
 
     function handlePostNameChange(event) {
         setPostName(event.target.value);
+    }
+
+    function handlePostImageChange(event) {
+        setPostImage(event.target.value);
     }
 
     function handleIsPublicChange(event) {
@@ -26,7 +31,8 @@ function PostPopup(props) {
             name: postName,
             content: postContent,
             isPublic: isPublic,
-            username: props.activeUser
+            username: props.activeUser,
+            image: postImage
         }
 
         props.setTrigger(false)
@@ -50,6 +56,11 @@ function PostPopup(props) {
                 <label>
                     Post Content:
                     <input onChange={handlePostContentChange}/>
+                </label>
+                <br></br>
+                <label>
+                    Image Hyperlink:
+                    <input onChange={handlePostImageChange}/>
                 </label>
                 <br></br>
                 <label>
