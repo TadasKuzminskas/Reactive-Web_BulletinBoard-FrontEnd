@@ -11,7 +11,11 @@ function FollowPopup(props) {
         console.log(event)
         axios.get(`http://localhost:9090/v1/user/starts/${event}`).then(response => {
             console.log(response.data)
-            setFollowing(response.data)
+
+            const users = response.data.filter(person => {
+                  return person.username !== props.activeUser
+                })
+            setFollowing(users)
         })
     }
 
@@ -48,11 +52,11 @@ function FollowPopup(props) {
             <div>
                 {following.map((person) => (
                     
-                    <div >
+                    <div key={person.id}>
                         <br></br>
-                        <div class="add-selection" style={{height : 30}}>
-                        <text >{person.username}  </text>
-                        <text class="add-button"  onClick={() => followPerson(person.username)}>add+</text>
+                        <div class="add-selection" style={{height : 30, width : 150}}>
+                        <text >{person.username}</text>
+                        <text class="add-button"  onClick={() => followPerson(person.username)}>follow+</text>
                         </div>
                     </div>
                 ))}

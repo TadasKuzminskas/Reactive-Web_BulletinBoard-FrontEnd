@@ -187,6 +187,26 @@ body {
   transition: all 0.5s ease;
 }
 
+.unfollow-button {
+  background-color: red;
+  height: 10px;
+  color: white;
+  padding: 5px 13px;
+  position: relative;
+  left: 40px;
+  top: 5px;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.unfollow-button:hover {
+  background-color: orange;
+  color: black;
+  cursor: pointer;
+  transform: scale(1.03);
+  transition: all 0.5s ease;
+}
+
 .add-selection {
   margin: 7px;
   padding: 10px 40px;
@@ -204,13 +224,13 @@ body {
   transition: all 0.5s ease;
 }
 
-.card:hover {
-  background-color: rgb(62, 62, 62);
-  color: white;
+/* .card:hover {
+
+  color: black;
   cursor: pointer;
   transform: scale(1.03);
   transition: all 0.5s ease;
-}
+} */
 
 .delete-button {
   background-color: white;

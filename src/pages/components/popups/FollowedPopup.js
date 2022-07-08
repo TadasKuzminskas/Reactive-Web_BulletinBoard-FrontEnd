@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import "./Popup.css"
 
@@ -5,20 +6,29 @@ import "./Popup.css"
 function FollowedPopup(props) {
 
 
-    
+    function unfollow(person) {
+        console.log("Unfollow nutton pressed.")
+
+        axios.delete(`http://localhost:9090/v1/friend/${person.id}`).then(
+            props.setFollowed(props.followed.filter(obj => {
+                return obj.username !== person.username
+            }))
+        )
+    }
 
     return ( props.trigger ) ? (
         <div className="popup">
             <div className="popup-inner">
             <button className="close-btn" onClick={() => {props.setTrigger(false);}}>X</button>
-            <h1>Popup</h1>
+            <h1>Followed</h1>
             
             <div>
                 {props.followed.map((person) => (
-                    <div >
+                    <div key={person.id}>
                         <br></br>
-                        <div class="add-selection" style={{height : 30}}>
-                        <text >{person.friend}  </text>
+                        <div class="add-selection" style={{height : 30, width : 150}}>
+                        <text >{person.friend}</text>
+                        <text class="unfollow-button" onClick={() => unfollow(person)}>unfollow</text>
                         </div>
                     </div>
                 ))}

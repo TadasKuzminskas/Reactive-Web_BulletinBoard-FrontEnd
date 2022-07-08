@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import api from '../api/baseURL';
 import axios from 'axios';
 import Posts from './components/Posts';
 import Navbar from './components/Navbar';
@@ -25,19 +24,25 @@ function HomePage() {
   const [followPopup, setFollowPopup] = useState(false);
   const [followedPopup, setFollowedPopup] = useState(false);
   const [followed, setFollowed] = useState([])
+  const [pagePublic, setPagePublic] = useState(0)
+  const [pagePrivate, setPagePrivate] = useState(0)
 
   function buttonPress() {
     console.log("Button pressed.")
   }
 
-  
-
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        var yourURL = "http://localhost:9090/v1/isPublic";
-        const response = await axios.get("http://localhost:9090/v1/isPublic")
-        setPosts(response.data)
+        const response = await axios.get(`http://localhost:9090/v1/isPublic/${pagePublic}`)
+        const response3 = await axios.get(`http://localhost:9090/v1/isPrivate/${pagePrivate}`)
+        setPagePublic(pagePublic + 5)
+        setPagePrivate(pagePrivate + 2)
+        var array = [...response.data, ...response3.data]
+        array.sort((a, b) => {
+          return new Date(b.date) - new Date(a.date)
+        })
+        setPosts(array)
       } catch (err) {
         console.log(err.response.data)
       }
@@ -46,11 +51,28 @@ function HomePage() {
         const response1 = await axios.get(`http://localhost:9090/v1/friends/${activeUser}`)
         setFollowed(response1.data)
       } catch (err) {
-        console.log(err.response.data)
+        console.log(err.response1.data)
       }
+
     }
     fetchItems();
   }, [])
+
+  const addPages = async () => {
+    setPagePublic(pagePublic + 5)
+    setPagePrivate(pagePrivate + 2)
+    const response = await axios.get(`http://localhost:9090/v1/isPublic/${pagePublic}`)
+    const response3 = await axios.get(`http://localhost:9090/v1/isPrivate/${pagePrivate}`)
+    var array = [...response.data, ...response3.data]
+    var array2 = [...array, ...posts]
+    array2.sort((a, b) => {
+      return new Date(b.date) - new Date(a.date)
+    })
+    setPosts(array2)
+  }
+
+
+
 
 
     return (
@@ -70,6 +92,9 @@ function HomePage() {
         followed={followed}
         setFollowed={setFollowed}
         />
+        <div className="comment-button" style={{width: 200, backgroundColor : 'orange'}} onClick={() => {addPages()}}>
+          <h3>Load More...</h3>
+        </div>
       </div>
     );
   }

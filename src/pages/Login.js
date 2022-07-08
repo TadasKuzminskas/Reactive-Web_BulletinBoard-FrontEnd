@@ -14,6 +14,10 @@ function Login() {
   function handlePasswordChange(event) {
     setPassword(event.target.value);
   }
+
+  const routeRegistration = () => {
+    window.location.href = '/registration'
+  }
   
 
 
@@ -67,6 +71,8 @@ function Login() {
       <input type="password" id="password" name="password" onChange={handlePasswordChange}/><br></br>
       {/* <input type="submit" value="Submit"/> */}
       <button class="card" style={{width : 75}} onClick={handleSubmit}>Login</button>
+      <br></br>
+      <button class="card" style={{width : 75}} onClick={routeRegistration}>Register</button>
     </form>
     </div>
   );

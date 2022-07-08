@@ -36,7 +36,6 @@ function CommentPopup(props) {
             <div className="popup-inner">
             <button className="close-btn" onClick={() => props.setTrigger(false)}>X</button>
             <p>Commenting as: {props.activeUser}</p>
-            <p>PostId: {props.postId}</p>
                 <form>
                     <label>
                         <input onChange={handleCommentChange}/>

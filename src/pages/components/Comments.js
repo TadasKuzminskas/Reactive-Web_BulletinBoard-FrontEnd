@@ -16,7 +16,6 @@ function Comments({postId, activeUser}) {
     
           setComments(response.data)
 
-          console.log(comments)
     
           } catch (err) {
             console.log(err.response.data)
@@ -45,8 +44,8 @@ function Comments({postId, activeUser}) {
     return (
 <div>
 {comments.map((comment) => (
-        <div class="comment">
-          <h3>{comment.name}</h3>
+        <div key={comment.id} class="comment">
+          <h3>  {comment.name}</h3>
           <p><span style={{fontWeight: 'bold'}}>{comment.username}</span> {comment.content}</p>
           {renderDeleteCommentButton(comment)}
           </div>

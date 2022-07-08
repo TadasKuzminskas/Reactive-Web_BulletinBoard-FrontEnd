@@ -32,9 +32,13 @@ function Posts({activeUser, posts, setPosts, commentPopup, setCommentPopup, post
     }
   }
 
-
-
-
+  function postColor(boolean) {
+    if (boolean) {
+      return "#fffff"
+    } else {
+      return "#faf6eb" 
+    }
+  }
     return (
         <div>
         <CommentPop trigger={commentPopup} setTrigger={setCommentPopup} activeUser={activeUser} postId={commentPostId}/>
@@ -43,10 +47,9 @@ function Posts({activeUser, posts, setPosts, commentPopup, setCommentPopup, post
         <FollowedPopup trigger={followedPopup} setTrigger={setFollowedPopup} activeUser={activeUser} followed={followed} setFollowed={setFollowed}/>
     <div class="container">
           {posts.map((post) => (
-        <div class="card">
+        <div key={post.id} class="card" style={{background: postColor(post.isPublic)}}>
           <h2>{post.username}</h2>
           <p>{renderDeletePostButton(post)}</p>
-          {/* <img class="card-image" src={images[Math.floor(Math.random()*images.length)]}></img> */}
           <img class="card-image" src={post.image} alt="Image not available"></img>
           <h3>{post.name}</h3>
           <p>{post.content}</p>

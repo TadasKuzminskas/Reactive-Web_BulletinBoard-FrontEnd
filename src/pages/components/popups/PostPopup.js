@@ -8,7 +8,7 @@ function PostPopup(props) {
     const [postContent, setPostContent] = useState("");
     const [postName, setPostName] = useState("");
     const [postImage, setPostImage] = useState("")
-    const [isPublic, setIsPublic] = useState(true)
+    const [isPublic, setIsPublic] = useState(false)
 
     function handlePostContentChange(event) {
         setPostContent(event.target.value);

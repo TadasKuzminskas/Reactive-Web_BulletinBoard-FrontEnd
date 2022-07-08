@@ -13,7 +13,7 @@ function Navbar({activeUser, logout, setPostPopup, setFollowPopup, setFollowedPo
             <h3 class="navbar-button-logout" onClick={() => logout()}>Log out</h3>
             <h3 class="navbar-button-newpost" style={{width : 110}} onClick={() => setPostPopup(true)}>New post</h3>
             <h3 class="navbar-button-newpost" style={{left : 440, width : 110}} onClick={() => setFollowedPopup(true)}>Followed</h3>
-            <h3 class="navbar-button-newpost" style={{left : 560, width : 115}} onClick={() => {setFollowPopup(true); buttonPress()}}>Follow+</h3>
+            <h3 class="navbar-button-newpost" style={{left : 560, width : 115}} onClick={() => {setFollowPopup(true)}}>Follow+</h3>
             
         </div>
     )
