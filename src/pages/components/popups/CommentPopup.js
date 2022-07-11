@@ -9,18 +9,12 @@ function CommentPopup({updateComments, ...props}) {
     const [comment, setComment] = useState("")
     
 
-    let updateCommentsFunction = {};
-
-    if (updateComments !== 'undefined') {
-        updateCommentsFunction = updateComments;
-    }
-
     // const handleCommentChange = (event) => {
     // updateCommentsFunction = updateComments;
     //     setComment(event.target.value);
     //   }
 
-    console.log("Received function before Async: ", updateCommentsFunction)
+    console.log("Received function before Async: ", updateComments)
 
     const postComment = async () => {
         try {
