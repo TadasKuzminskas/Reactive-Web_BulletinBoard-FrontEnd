@@ -48,10 +48,6 @@ body {
 
 .navbar {
   background: white;
-  width: 320px;
-  height: 60px;
-  margin: 10px;
-  border-radius: 15px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -60,42 +56,35 @@ body {
   height: 40px;
   margin-bottom: 15px;
   background-size: cover;
-  position: absolute;
+  position: sticky;
   top: 20px;
-  left: 25px;
+  padding-left: 1%;
 }
 
 .navbar-text-logo {
   height: 50px;
+  top: 20px;
   color: black;
-  position: absolute;
-  left: 100px;
+  position: sticky;
   border-radius: 0px;
   padding: 0%;
   margin: 6px
 }
 
 .navbar-text-loggedIn {
-  height: 50px;
   color: black;
-  position: absolute;
-  right: 120px;
-  border-radius: 0px;
-  padding: 0%;
-  margin: 17px
+  position: sticky;
+  margin-left: auto;
 }
 
 .navbar-button-logout {
   color: black;
   width: 100px;
-  position: absolute;
-  right: 10px;
-  border-radius: 0px;
-  padding: 0%;
-  margin: 15px;
+  position: sticky;
   background-color: white;
   color : black;
-  display: block;
+  margin-left: 10px;
+  margin-right: 10px;
   text-align: center;
   border: 1px solid #282c34;
   border-radius: 15px;
@@ -105,11 +94,9 @@ body {
 .navbar-button-newpost {
   color: black;
   width: 100px;
-  position: absolute;
-  left: 320px;
-  border-radius: 0px;
+  position: sticky;
   padding: 0%;
-  margin: 16px;
+  margin-left: 2%;
   background-color: white;
   color : black;
   display: block;
@@ -137,13 +124,25 @@ body {
 
 .card {
   background: white;
-  width: 320px;
+  width: 31%;
   margin: 10px;
   border-radius: 15px;
 }
 
+@media screen and (max-width: 856px) {
+  .card {
+    width: 47%;
+  }
+}
+
+@media screen and (max-width: 667px) {
+  .card {
+    width: 96%;
+  }
+}
+
 .card-image { 
-  width: 318px;
+  width: 90%;
   margin-bottom: 15px;
   background-size: cover;
   border-radius: 15px;

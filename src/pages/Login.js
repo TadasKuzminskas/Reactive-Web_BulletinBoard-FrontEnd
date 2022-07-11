@@ -6,6 +6,7 @@ function Login() {
 
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [invalidCredentials, setInvalidCredentials] = useState(false)
 
   function handleUsernameChange(event) {
     setUsername(event.target.value);
@@ -36,12 +37,8 @@ function Login() {
         //get token from response
         const token = response.data.jwt;
 
-        
-
         //set JWT token to local
         localStorage.setItem("token", token);
-        localStorage.setItem("username", loginPayload.username)
-
 
         console.log(token)
 
@@ -52,7 +49,10 @@ function Login() {
         window.location.href = '/'
 
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+          console.log(err)
+          setInvalidCredentials(true)
+      });
   };
 
   return (
@@ -74,6 +74,8 @@ function Login() {
       <br></br>
       <button class="card" style={{width : 75}} onClick={routeRegistration}>Register</button>
     </form>
+    {invalidCredentials && <h3 style={{color : 'white'}}>Invalid Credentials.</h3>}
+
     </div>
   );
 }
