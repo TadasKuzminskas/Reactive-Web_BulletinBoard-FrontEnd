@@ -8,6 +8,8 @@ function Register() {
   const [password, setPassword] = useState("")
   const [name, setName] = useState("")
   const [lastName, setLastName] = useState("")
+  const [formError, setFormError] = useState(false)
+  const [lengthError, setLenghtError] = useState(false)
 
   function handleUsernameChange(event) {
     setUsername(event.target.value);
@@ -27,6 +29,11 @@ function Register() {
 
   const handleSubmit = async () => {
 
+    if (username.length < 4 || password.length < 7 || name.length < 3 || lastName.length < 3) {
+      setFormError(false)
+      setLenghtError(true)
+    } else {
+
     const userToRegister = {
         username: username,
         name: name,
@@ -39,10 +46,21 @@ function Register() {
         friend: username
     }
 
-    await axios.post("http://localhost:9090/v1/userRegistration", userToRegister)
-    await axios.post("http://localhost:9090/v1/friend", person)
-    window.location.href = '/login'
+    const response = await axios.post("http://localhost:9090/v1/userRegistration", userToRegister)
     
+    console.log(response)
+
+    if (response.data > 0) {
+      await axios.post("http://localhost:9090/v1/friend", person)
+      window.location.href = '/login'
+    } else {
+      setFormError(true)
+      setLenghtError(false)
+      console.log("Bad reponse")
+      console.log(formError)
+    }
+
+  }
   }
 
   const backButton = () => {
@@ -69,10 +87,15 @@ function Register() {
       <input type="lastname" id="lastname" name="lastname" onChange={handleLastNameChange}/><br />
       <label for="password" style={{color : 'white'}}>Password</label><br />
       <input type="password" id="password" name="password" onChange={handlePasswordChange}/><br></br>
-      {/* <input type="submit" value="Submit"/> */}
-      <button class="card" style={{width : 75}} onClick={() => handleSubmit}>Register</button>
-      <button class="card" style={{width : 75}} onClick={() => backButton}>Back</button>
+      {/* <input type="submit" value="Submit"/> */}   
+      <br></br>
     </form>
+    <button class="card" style={{width : 75}} onClick={handleSubmit}>Register</button>
+    <button class="card" style={{width : 75}} onClick={backButton}>Back</button>
+    <div>
+    </div>
+    {formError && <h3 style={{color : 'white'}}>Username exists.</h3>}
+    {lengthError && <h3 style={{color : 'white'}}>Inputs are too short</h3>}
     </div>
   );
 }

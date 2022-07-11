@@ -6,9 +6,16 @@ import { useState } from 'react';
 function CommentPopup(props) {
 
     const [comment, setComment] = useState("")
+    const [lengthExceeded, setLenghtExceded] = useState(false)
 
     function handleCommentChange(event) {
         setComment(event.target.value);
+        if(event.target.value.length > 254) {
+            setLenghtExceded(true)
+        } 
+        if(event.target.value.length <= 254) {
+            setLenghtExceded(false)
+        }
       }
 
 
@@ -35,12 +42,13 @@ function CommentPopup(props) {
          <div className="popup">
             <div className="popup-inner">
             <button className="close-btn" onClick={() => props.setTrigger(false)}>X</button>
-            <p>Commenting as: {props.activeUser}</p>
                 <form>
                     <label>
-                        <input onChange={handleCommentChange}/>
+                        Comment:
+                        <textarea cols={20} rows={5} maxLength={255} onChange={handleCommentChange}/>
                     </label>
                 </form>
+                {lengthExceeded && <p style={{color : 'black'}}>Comment lenght exceeded</p>}
                 <button className="confirm" class="button" onClick={postComment}>comment</button>
                 
             </div>

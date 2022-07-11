@@ -50,22 +50,22 @@ function PostPopup(props) {
             <form>
                 <label>
                     Post Name:
-                    <input onChange={handlePostNameChange}/>
+                    <input maxLength={100} onChange={handlePostNameChange}/>
                 </label>
                 <br></br>
                 <label>
                     Post Content:
-                    <input onChange={handlePostContentChange}/>
+                    <textarea cols={20} rows={5} maxLength={255} onChange={handlePostContentChange}/>
                 </label>
                 <br></br>
                 <label>
                     Image Hyperlink:
-                    <input onChange={handlePostImageChange}/>
+                    <input maxLength={255} onChange={handlePostImageChange}/>
                 </label>
                 <br></br>
                 <label>
-                    Is it Public?
                     <input type="checkbox" checked={isPublic} onChange={handleIsPublicChange}/>
+                    Is it Public?
                 </label>
                 
             </form>

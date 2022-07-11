@@ -6,7 +6,7 @@ import Navbar from './components/Navbar';
 
 function HomePage() {
 
-  var activeUser = localStorage.getItem("username")
+  //var activeUser = localStorage.getItem("username")
 
   function logout() {
     console.log("logout button pressed.")
@@ -26,6 +26,7 @@ function HomePage() {
   const [followed, setFollowed] = useState([])
   const [pagePublic, setPagePublic] = useState(0)
   const [pagePrivate, setPagePrivate] = useState(0)
+  const [activeUser, setActiveUser] = useState([]);
 
   function buttonPress() {
     console.log("Button pressed.")
@@ -33,6 +34,14 @@ function HomePage() {
 
   useEffect(() => {
     const fetchItems = async () => {
+
+      try {
+      const activeUserFetch = await axios.get("http://localhost:9090/v1/activeUser");
+      setActiveUser(activeUserFetch.data);
+      } catch (err) {
+        console.log(err)
+      }
+
       try {
         const response = await axios.get(`http://localhost:9090/v1/isPublic/${pagePublic}`)
         const response3 = await axios.get(`http://localhost:9090/v1/isPrivate/${pagePrivate}`)
@@ -48,7 +57,7 @@ function HomePage() {
       }
 
       try {
-        const response1 = await axios.get(`http://localhost:9090/v1/friends/${activeUser}`)
+        const response1 = await axios.get(`http://localhost:9090/v1/friends/${activeUser.username}`)
         setFollowed(response1.data)
       } catch (err) {
         console.log(err.response1.data)
@@ -77,8 +86,8 @@ function HomePage() {
 
     return (
       <div>
-        <Navbar activeUser={activeUser} logout={logout} setPostPopup={setPostPopup} setFollowPopup={setFollowPopup} setFollowedPopup={setFollowedPopup} buttonPress={buttonPress}/>
-         <Posts activeUser={activeUser} 
+        <Navbar activeUser={activeUser.username} logout={logout} setPostPopup={setPostPopup} setFollowPopup={setFollowPopup} setFollowedPopup={setFollowedPopup} buttonPress={buttonPress}/>
+         <Posts activeUser={activeUser.username} 
         posts={posts}
         setPosts={setPosts}
         commentPopup={commentPopup}
