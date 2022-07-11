@@ -7,20 +7,20 @@ function Comments({postId, activeUser}) {
 
   const [comments, setComments] = useState([]);
 
+  const updateComments = (comment) => {
+
+    setComments(...comments, comment);
+  };
+
     useEffect(() => {
         const fetchItems = async () => {
           try {
           var URL = `http://localhost:9090/v1/commentsByPost/${postId}`;
-    
           const response = await axios.get(URL)
-    
           setComments(response.data)
-
-    
           } catch (err) {
             console.log(err.response.data)
           }
-    
         }
         fetchItems();
       }, [])
@@ -52,7 +52,8 @@ function Comments({postId, activeUser}) {
           
           
       ))}
-<CommentPopup commentsMap={comments} setCommentsMap={setComments}/>
+      {console.log("Passed function", updateComments)}
+<CommentPopup updateComments={updateComments} postId={postId}/>
 </div>
       );
 }

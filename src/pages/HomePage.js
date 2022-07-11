@@ -28,16 +28,22 @@ function HomePage() {
   const [pagePrivate, setPagePrivate] = useState(0)
   const [activeUser, setActiveUser] = useState([]);
 
+  
+
   function buttonPress() {
     console.log("Button pressed.")
   }
 
   useEffect(() => {
+
     const fetchItems = async () => {
 
       try {
       const activeUserFetch = await axios.get("http://localhost:9090/v1/activeUser");
       setActiveUser(activeUserFetch.data);
+      console.log(activeUserFetch.data.username)
+      const response1 = await axios.get(`http://localhost:9090/v1/friends/${activeUserFetch.data.username}`)
+      setFollowed(response1.data)
       } catch (err) {
         console.log(err)
       }
@@ -55,14 +61,6 @@ function HomePage() {
       } catch (err) {
         console.log(err.response.data)
       }
-
-      try {
-        const response1 = await axios.get(`http://localhost:9090/v1/friends/${activeUser.username}`)
-        setFollowed(response1.data)
-      } catch (err) {
-        console.log(err.response1.data)
-      }
-
     }
     fetchItems();
   }, [])

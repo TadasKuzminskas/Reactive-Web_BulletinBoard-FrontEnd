@@ -2,6 +2,8 @@
 
 function Navbar({activeUser, logout, setPostPopup, setFollowPopup, setFollowedPopup, buttonPress}) {
 
+    
+
 
     return (
         <div class="navbar" style={{width : "auto" }}>
@@ -10,7 +12,7 @@ function Navbar({activeUser, logout, setPostPopup, setFollowPopup, setFollowedPo
             <h3 class="navbar-button-newpost" onClick={() => setPostPopup(true)}>New post</h3>
             <h3 class="navbar-button-newpost" onClick={() => setFollowedPopup(true)}>Followed</h3>
             <h3 class="navbar-button-newpost" onClick={() => {setFollowPopup(true)}}>Follow+</h3>
-            <p class="navbar-text-loggedIn">User: {activeUser}</p>
+            <h3 class="navbar-text-loggedIn"> {activeUser}</h3>
             <h3 class="navbar-button-logout" onClick={() => logout()}>Log out</h3>
         </div>
     )

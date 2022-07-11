@@ -80,13 +80,13 @@ function Register() {
       }}
     >
       <label for="username" style={{color : 'white'}}>Username</label><br />
-      <input type="username" id="username" name="username" onChange={handleUsernameChange}/><br />
+      <input type="username" id="username" name="username" maxLength={30}  onChange={handleUsernameChange}/><br />
       <label for="name" style={{color : 'white'}}>Name</label><br />
-      <input type="name" id="name" name="name" onChange={handleNameChange}/><br />
+      <input type="name" id="name" name="name" maxLength={30}  onChange={handleNameChange}/><br />
       <label for="lastname" style={{color : 'white'}}>Lastname</label><br />
-      <input type="lastname" id="lastname" name="lastname" onChange={handleLastNameChange}/><br />
+      <input type="lastname" id="lastname" name="lastname" maxLength={30}  onChange={handleLastNameChange}/><br />
       <label for="password" style={{color : 'white'}}>Password</label><br />
-      <input type="password" id="password" name="password" onChange={handlePasswordChange}/><br></br>
+      <input type="password" id="password" name="password" maxLength={30}  onChange={handlePasswordChange}/><br></br>
       {/* <input type="submit" value="Submit"/> */}   
       <br></br>
     </form>

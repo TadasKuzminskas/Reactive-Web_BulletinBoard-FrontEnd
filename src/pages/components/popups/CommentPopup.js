@@ -2,39 +2,47 @@ import axios from "axios";
 import React from "react";
 import "./Popup.css"
 import { useState } from 'react';
+import Comments from "../Comments";
 
-function CommentPopup(props) {
+function CommentPopup({updateComments, ...props}) {
 
     const [comment, setComment] = useState("")
-    const [lengthExceeded, setLenghtExceded] = useState(false)
+    
 
-    function handleCommentChange(event) {
-        setComment(event.target.value);
-        if(event.target.value.length > 254) {
-            setLenghtExceded(true)
-        } 
-        if(event.target.value.length <= 254) {
-            setLenghtExceded(false)
-        }
-      }
+    let updateCommentsFunction = {};
 
+    if (updateComments !== 'undefined') {
+        updateCommentsFunction = updateComments;
+    }
 
-    function postComment() {
-        const commentToPost = {
+    // const handleCommentChange = (event) => {
+    // updateCommentsFunction = updateComments;
+    //     setComment(event.target.value);
+    //   }
+
+    console.log("Received function before Async: ", updateCommentsFunction)
+
+    const postComment = async () => {
+        try {
+          const commentToPost = {
             content: comment,
             username: props.activeUser,
-            post: props.postId
+            post: props.postId,
+            id: 0
+          };
+          console.log('Received function before axios:', updateCommentsFunction);
+          const response = await axios.post("http://localhost:9090/v1/comment", commentToPost);
+    
+          props.setTrigger(false);
+    
+          commentToPost.id = response.data;
+    
+          console.log('Received function after async:', updateComments);
+          updateComments(commentToPost);
+          
+        } catch (error) {
+          console.error(error);
         }
-
-
-        console.log("comment button pressed.")
-
-        props.setTrigger(false)
-        axios.post("http://localhost:9090/v1/comment", commentToPost).then(
-            props.setCommentsMap([...props.commentsMap, commentToPost])
-            
-
-        )
     }
 
 
@@ -45,10 +53,9 @@ function CommentPopup(props) {
                 <form>
                     <label>
                         Comment:
-                        <textarea cols={20} rows={5} maxLength={255} onChange={handleCommentChange}/>
+                        <textarea cols={20} rows={5} maxLength={255} onChange={event => setComment(event.target.value)}/>
                     </label>
                 </form>
-                {lengthExceeded && <p style={{color : 'black'}}>Comment lenght exceeded</p>}
                 <button className="confirm" class="button" onClick={postComment}>comment</button>
                 
             </div>
