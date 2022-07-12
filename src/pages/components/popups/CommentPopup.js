@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useRef } from "react";
 import "./Popup.css";
 
-const CommentPopup = ({ updateComments, ...props }) => {
+const CommentPopup = ({ updateComments, setTrigger, ...props }) => {
   // This way you don't need to update state on each input change
   const commentInputRef = useRef(null);
   const postComment = async (comment) => {
@@ -20,10 +20,10 @@ const CommentPopup = ({ updateComments, ...props }) => {
       commentToPost.id = response.data;
 
       updateComments(commentToPost);
-      // Without the "?"" it will throw an error. As you are trying to invoke a method that is not passed to this component
+      // You are trying to invoke a method that is not passed to this component
       // from the Comments.js component.
       // This will crash the component and every other prop becomes undefined. So perhaps this was the cause of your "undefined" problem.
-      props?.setTrigger(false);
+      setTrigger && setTrigger(false);
     } catch (error) {
       console.error(error);
     }
@@ -48,7 +48,10 @@ const CommentPopup = ({ updateComments, ...props }) => {
   return (
     <div className="popup">
       <div className="popup-inner">
-        <button className="close-btn" onClick={() => props?.setTrigger(false)}>
+        <button
+          className="close-btn"
+          onClick={() => setTrigger && setTrigger(false)}
+        >
           X
         </button>
 
