@@ -36,14 +36,14 @@ function Comments({postId, activeUser}) {
           console.log("delete button pressed")
         }
         if(comment.username == activeUser) {
-          return <text class="delete-button" onClick={() => deleteComment()}>Delete</text>
+          return <p className="delete-button" onClick={() => deleteComment()}>Delete</p>
         }
       }
 
     return (
 <div>
 {comments.map((comment) => (
-        <div key={comment.id} class="comment">
+        <div key={comment.id} className="comment">
           <h3>  {comment.name}</h3>
           <p><span style={{fontWeight: 'bold'}}>{comment.username}</span> {comment.content}</p>
           {renderDeleteCommentButton(comment)}

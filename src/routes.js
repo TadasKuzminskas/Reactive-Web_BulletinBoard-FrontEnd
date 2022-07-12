@@ -27,7 +27,7 @@ function Routes() {
                     path="/registration"
                     component={RegistrationPage}
                 />
-                <Redirect to="/" />
+                <Redirect to="/login" />
             </Switch>
         </Router>
     );

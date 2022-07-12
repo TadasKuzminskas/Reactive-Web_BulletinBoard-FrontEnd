@@ -61,7 +61,6 @@ function HomePage() {
       try {
       const activeUserFetch = await axios.get("http://localhost:9090/v1/activeUser");
       setActiveUser(activeUserFetch.data);
-      console.log(activeUserFetch.data.username)
       const response1 = await axios.get(`http://localhost:9090/v1/friends/${activeUserFetch.data.username}`)
       setFollowed(response1.data)
       } catch (err) {

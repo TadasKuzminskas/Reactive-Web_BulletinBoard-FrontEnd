@@ -37,8 +37,12 @@ function Login() {
         //get token from response
         const token = response.data.jwt;
 
+        const refreshToken = response.data.refresh;
+
         //set JWT token to local
         localStorage.setItem("token", token);
+
+        localStorage.setItem("refreshToken", refreshToken)
 
         console.log(token)
 

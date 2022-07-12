@@ -28,7 +28,7 @@ function Posts({activeUser, posts, setPosts, commentPopup, setCommentPopup, post
     }
 
     if(post.username == activeUser) {
-      return <text class="delete-button" onClick={() => deletePost(post.id)}>Delete Post</text>
+      return <p className="delete-button" onClick={() => deletePost(post.id)}>Delete Post</p>
     }
   }
 
@@ -45,16 +45,16 @@ function Posts({activeUser, posts, setPosts, commentPopup, setCommentPopup, post
         <PostPopup trigger={postPopup} setTrigger={setPostPopup} posts={posts} setPosts={setPosts} activeUser={activeUser}/>
         <FollowPopup trigger={followPopup} setTrigger={setFollowPopup} activeUser={activeUser}></FollowPopup>
         <FollowedPopup trigger={followedPopup} setTrigger={setFollowedPopup} activeUser={activeUser} followed={followed} setFollowed={setFollowed}/>
-    <div class="container">
+    <div className="container">
           {posts.map((post) => (
-        <div key={post.id} class="card" style={{background: postColor(post.isPublic)}}>
+        <div key={post.id} className="card" style={{background: postColor(post.isPublic)}}>
           <h2>{post.username}</h2>
-          <p>{renderDeletePostButton(post)}</p>
-          <img class="card-image" src={post.image} alt="Image not available"></img>
+          <div>{renderDeletePostButton(post)}</div>
+          <img className="card-image" src={post.image} alt="Image not available"></img>
           <h3>{post.name}</h3>
           <p>{post.content}</p>
           <Comments postId={post.id} activeUser={activeUser}/>
-          <a class="comment-button" onClick={() => {setCommentPopup(true); setCommentPostId(post.id)}} >comment</a>
+          <a className="comment-button" onClick={() => {setCommentPopup(true); setCommentPostId(post.id)}} >comment</a>
           </div>
       ))}
     </div>
