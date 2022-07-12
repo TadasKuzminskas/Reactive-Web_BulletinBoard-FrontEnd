@@ -38,7 +38,7 @@ const CommentPopup = ({ updateComments, setTrigger, ...props }) => {
     postComment(commentInputRef.current.value);
   };
 
-  // It's way cleaner to return early from a condition than to use
+  // It's way cleaner to return early when using a condition when rendering rather than to use
   // shorthand conditional in this situation.
   // The previous method made the code unreadable.
   if (!props.trigger) {
