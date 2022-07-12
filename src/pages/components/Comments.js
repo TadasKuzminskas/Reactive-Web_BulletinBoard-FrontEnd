@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import CommentPopup from './popups/CommentPopup';
 import CommentPop from './popups/CommentPopup';
 
@@ -8,7 +8,6 @@ function Comments({postId, activeUser}) {
   const [comments, setComments] = useState([]);
 
   const updateComments = (comment) => {
-
     setComments(...comments, comment);
   };
 
@@ -52,7 +51,7 @@ function Comments({postId, activeUser}) {
           
           
       ))}
-      {console.log("Passed function", updateComments)}
+      {/* {console.log("Passed function", updateComments)} */}
 <CommentPopup updateComments={updateComments} postId={postId}/>
 </div>
       );

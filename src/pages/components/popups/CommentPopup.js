@@ -13,8 +13,9 @@ function CommentPopup({updateComments, ...props}) {
     // updateCommentsFunction = updateComments;
     //     setComment(event.target.value);
     //   }
+    
 
-    console.log("Received function before Async: ", updateComments)
+    // console.log("Received updateComments function: ", updateComments)
 
     const postComment = async () => {
         try {
@@ -24,7 +25,7 @@ function CommentPopup({updateComments, ...props}) {
             post: props.postId,
             id: 0
           };
-          console.log('Received function before axios:', updateCommentsFunction);
+          console.log('Received function before axios:', updateComments);
           const response = await axios.post("http://localhost:9090/v1/comment", commentToPost);
     
           props.setTrigger(false);
@@ -32,6 +33,7 @@ function CommentPopup({updateComments, ...props}) {
           commentToPost.id = response.data;
     
           console.log('Received function after async:', updateComments);
+          
           updateComments(commentToPost);
           
         } catch (error) {

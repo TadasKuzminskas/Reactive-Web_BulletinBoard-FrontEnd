@@ -6,12 +6,10 @@ import Navbar from './components/Navbar';
 
 function HomePage() {
 
-  //var activeUser = localStorage.getItem("username")
-
   function logout() {
     console.log("logout button pressed.")
 
-    localStorage.setItem("username", "")
+    //localStorage.setItem("username", "")
     localStorage.setItem("token", "");
 
     window.location.href = '/login'
@@ -28,7 +26,29 @@ function HomePage() {
   const [pagePrivate, setPagePrivate] = useState(0)
   const [activeUser, setActiveUser] = useState([]);
 
-  
+  const updateFollowed = (followed) => {
+    setFollowed(followed);
+  };
+
+  const updatePosts = (post) => {
+    setPosts(post);
+  };
+
+  const updateCommentPopup = (boolean) => {
+    setCommentPopup(boolean)
+  }
+
+  const updatePostPopup = (boolean) => {
+    setPostPopup(boolean)
+  }
+
+  const updateFollowPopup = (boolean) => {
+    setFollowPopup(boolean)
+  }
+
+  const updateFollowedPopup = (boolean) => {
+    setFollowedPopup(boolean)
+  }
 
   function buttonPress() {
     console.log("Button pressed.")
@@ -84,20 +104,20 @@ function HomePage() {
 
     return (
       <div>
-        <Navbar activeUser={activeUser.username} logout={logout} setPostPopup={setPostPopup} setFollowPopup={setFollowPopup} setFollowedPopup={setFollowedPopup} buttonPress={buttonPress}/>
+        <Navbar activeUser={activeUser.username} logout={logout} setPostPopup={updatePostPopup} setFollowPopup={updateFollowPopup} setFollowedPopup={updateFollowedPopup} buttonPress={buttonPress}/>
          <Posts activeUser={activeUser.username} 
         posts={posts}
-        setPosts={setPosts}
+        setPosts={updatePosts}
         commentPopup={commentPopup}
-        setCommentPopup={setCommentPopup}
+        setCommentPopup={updateCommentPopup}
         postPopup={postPopup}
-        setPostPopup={setPostPopup}
+        setPostPopup={updatePostPopup}
         followPopup={followPopup}
-        setFollowPopup={setFollowPopup}
+        setFollowPopup={updateFollowPopup}
         followedPopup={followedPopup}
-        setFollowedPopup={setFollowedPopup}
+        setFollowedPopup={updateFollowedPopup}
         followed={followed}
-        setFollowed={setFollowed}
+        setFollowed={updateFollowed}
         />
         <div className="comment-button" style={{width: 200, backgroundColor : 'orange'}} onClick={() => {addPages()}}>
           <h3>Load More...</h3>

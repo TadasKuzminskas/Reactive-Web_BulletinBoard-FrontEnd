@@ -28,6 +28,7 @@ function PostPopup(props) {
 
     function postPost() {
         const postToPost = {
+            id: 0,
             name: postName,
             content: postContent,
             isPublic: isPublic,
@@ -36,9 +37,13 @@ function PostPopup(props) {
         }
 
         props.setTrigger(false)
-        axios.post("http://localhost:9090/v1/post", postToPost).then(
-             props.setPosts([...props.posts, postToPost])
-        )
+        axios.post("http://localhost:9090/v1/post", postToPost)
+        .then(response => {
+            postToPost.id = response.data
+            console.log(postPost)
+            console.log(props.setPosts)
+            props.setPosts([postToPost, ...props.posts])
+    })
     }
 
 
