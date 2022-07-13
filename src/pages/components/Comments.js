@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import CommentPopup from './popups/CommentPopup';
 import CommentPop from './popups/CommentPopup';
+import { fetchRefreshToken } from '../../helpers/RefreshTokenInitializer'
 
 function Comments({postId, activeUser}) {
 
@@ -18,6 +19,7 @@ function Comments({postId, activeUser}) {
           const response = await axios.get(URL)
           setComments(response.data)
           } catch (err) {
+            fetchRefreshToken(err)
             console.log(err.response.data)
           }
         }
@@ -32,7 +34,7 @@ function Comments({postId, activeUser}) {
                 return comment1.id !== comment.id
               })
               )
-          )
+          ).catch(err => fetchRefreshToken(err))
           console.log("delete button pressed")
         }
         if(comment.username == activeUser) {

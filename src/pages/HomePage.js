@@ -2,16 +2,14 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Posts from './components/Posts';
 import Navbar from './components/Navbar';
+import { fetchRefreshToken } from '../helpers/RefreshTokenInitializer'
 
 
 function HomePage() {
 
   function logout() {
     console.log("logout button pressed.")
-
-    //localStorage.setItem("username", "")
     localStorage.setItem("token", "");
-
     window.location.href = '/login'
 
   }
@@ -62,9 +60,12 @@ function HomePage() {
       const activeUserFetch = await axios.get("http://localhost:9090/v1/activeUser");
       setActiveUser(activeUserFetch.data);
       const response1 = await axios.get(`http://localhost:9090/v1/friends/${activeUserFetch.data.username}`)
-      setFollowed(response1.data)
+      const followed = response1.data.filter(person => {
+        return person.friend !== activeUserFetch.data.username
+      })
+      setFollowed(followed)
       } catch (err) {
-        console.log(err)
+        fetchRefreshToken(err);
       }
 
       try {
@@ -78,13 +79,14 @@ function HomePage() {
         })
         setPosts(array)
       } catch (err) {
-        console.log(err.response.data)
+        fetchRefreshToken(err);
       }
     }
     fetchItems();
   }, [])
 
   const addPages = async () => {
+    try {
     setPagePublic(pagePublic + 5)
     setPagePrivate(pagePrivate + 2)
     const response = await axios.get(`http://localhost:9090/v1/isPublic/${pagePublic}`)
@@ -95,6 +97,9 @@ function HomePage() {
       return new Date(b.date) - new Date(a.date)
     })
     setPosts(array2)
+  } catch (err) {
+    fetchRefreshToken(err);
+  }
   }
 
 

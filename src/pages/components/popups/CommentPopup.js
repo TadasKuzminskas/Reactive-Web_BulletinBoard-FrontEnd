@@ -1,63 +1,80 @@
 import axios from "axios";
 import React from "react";
 import "./Popup.css"
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Comments from "../Comments";
+import { fetchRefreshToken } from '../../../helpers/RefreshTokenInitializer'
 
-function CommentPopup({updateComments, ...props}) {
+function CommentPopup({updateComments, setTrigger, ...props}) {
 
-    const [comment, setComment] = useState("")
-    
+  const commentInputRef = useRef(null);
 
-    // const handleCommentChange = (event) => {
-    // updateCommentsFunction = updateComments;
-    //     setComment(event.target.value);
-    //   }
-    
+    //const [comment, setComment] = useState("")
+  
 
-    // console.log("Received updateComments function: ", updateComments)
-
-    const postComment = async () => {
+    const postComment = async (comment) => {
         try {
           const commentToPost = {
-            content: comment,
+            content: commentInputRef.current.value,
             username: props.activeUser,
             post: props.postId,
             id: 0
           };
-          console.log('Received function before axios:', updateComments);
-          const response = await axios.post("http://localhost:9090/v1/comment", commentToPost);
-    
-          props.setTrigger(false);
+
+          const response = await axios.post(
+            "http://localhost:9090/v1/comment",
+             commentToPost
+          );
     
           commentToPost.id = response.data;
-    
-          console.log('Received function after async:', updateComments);
           
-          updateComments(commentToPost);
+          //This line is not working for some reason. 
+          //updateComments(commentToPost);
           
+          setTrigger && setTrigger(false);
         } catch (error) {
-          console.error(error);
+          fetchRefreshToken(error)
         }
-    }
+    };
 
+    const submitForm = (event) => {
+      event.preventDefault();
 
-    return ( props.trigger) ? (
+      postComment(commentInputRef.current.value);
+    };
+
+    if (!props.trigger) {
+      return null;
+    };
+
+    return (
          <div className="popup">
             <div className="popup-inner">
-            <button className="close-btn" onClick={() => props.setTrigger(false)}>X</button>
-                <form>
+            <button className="close-btn" 
+            onClick={() =>setTrigger && setTrigger(false)}
+            >
+              X
+              </button>
+
+                <form onSubmit={submitForm}>
                     <label>
                         Comment:
-                        <textarea cols={20} rows={5} maxLength={255} onChange={event => setComment(event.target.value)}/>
+                        <textarea 
+                        ref={commentInputRef}
+                        cols={20} 
+                        rows={5} 
+                        maxLength={255} 
+                        />
                     </label>
                 </form>
-                <button className="confirm" class="button" onClick={postComment}>comment</button>
-                
+
+                <button className="confirm" class="button" onClick={postComment}>
+                  comment
+                  </button>
             </div>
         </div>
-    ) : "";
-}
+    );
+};
 
 
 export default CommentPopup;

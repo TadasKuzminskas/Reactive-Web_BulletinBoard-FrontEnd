@@ -5,6 +5,7 @@ import CommentPop from './popups/CommentPopup';
 import PostPopup from './popups/PostPopup';
 import FollowPopup from './popups/FollowPopup';
 import FollowedPopup from './popups/FollowedPopup';
+import { fetchRefreshToken } from '../../helpers/RefreshTokenInitializer'
 
 
 function Posts({activeUser, posts, setPosts, commentPopup, setCommentPopup, postPopup, setPostPopup, followPopup, setFollowPopup, followedPopup, setFollowedPopup, followed, setFollowed}) {
@@ -23,7 +24,7 @@ function Posts({activeUser, posts, setPosts, commentPopup, setCommentPopup, post
           })
           )
       }
-      )
+      ).catch(err => fetchRefreshToken(err))
       console.log("delete button pressed")
     }
 
@@ -43,7 +44,7 @@ function Posts({activeUser, posts, setPosts, commentPopup, setCommentPopup, post
         <div>
         <CommentPop trigger={commentPopup} setTrigger={setCommentPopup} activeUser={activeUser} postId={commentPostId}/>
         <PostPopup trigger={postPopup} setTrigger={setPostPopup} posts={posts} setPosts={setPosts} activeUser={activeUser}/>
-        <FollowPopup trigger={followPopup} setTrigger={setFollowPopup} activeUser={activeUser}></FollowPopup>
+        <FollowPopup trigger={followPopup} setTrigger={setFollowPopup} activeUser={activeUser} followed={followed}></FollowPopup>
         <FollowedPopup trigger={followedPopup} setTrigger={setFollowedPopup} activeUser={activeUser} followed={followed} setFollowed={setFollowed}/>
     <div className="container">
           {posts.map((post) => (

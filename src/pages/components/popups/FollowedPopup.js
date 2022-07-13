@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import "./Popup.css"
-
+import { fetchRefreshToken } from '../../../helpers/RefreshTokenInitializer'
 
 function FollowedPopup(props) {
 
@@ -13,7 +13,7 @@ function FollowedPopup(props) {
             props.setFollowed(props.followed.filter(obj => {
                 return obj.username !== person.username
             }))
-        )
+        ).catch(error => fetchRefreshToken(error))
     }
 
     return ( props.trigger ) ? (
@@ -24,6 +24,7 @@ function FollowedPopup(props) {
             
             <div>
                 {props.followed.map((person) => (
+                    
                     <div key={person.id}>
                         <br></br>
                         <div class="add-selection" style={{height : 30, width : 150}}>
@@ -31,6 +32,7 @@ function FollowedPopup(props) {
                         <text class="unfollow-button" onClick={() => unfollow(person)}>unfollow</text>
                         </div>
                     </div>
+                    
                 ))}
             </div>
             </div>

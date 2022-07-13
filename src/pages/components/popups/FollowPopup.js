@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import "./Popup.css"
 import { useState } from 'react';
+import { fetchRefreshToken } from '../../../helpers/RefreshTokenInitializer'
 
 function FollowPopup(props) {
 
@@ -13,9 +14,14 @@ function FollowPopup(props) {
             console.log(response.data)
 
             const users = response.data.filter(person => {
-                  return person.username !== props.activeUser
-                })
-            setFollowing(users)
+
+                         return person.username !== props.activeUser
+            })
+                   
+
+           setFollowing(users)
+        }).catch( err => {
+            fetchRefreshToken(err)
         })
     }
 
@@ -30,17 +36,8 @@ function FollowPopup(props) {
             username: props.activeUser,
             friend: personToAdd
         }
-
-        console.log("Person " + personToAdd + " added to " + props.activeUser)
-        console.log(person)
-
-
-
-        axios.post("http://localhost:9090/v1/friend", person)
+        axios.post("http://localhost:9090/v1/friend", person).catch( err => fetchRefreshToken(err))
     }
-
-
-
 
 
     return ( props.trigger ) ? (

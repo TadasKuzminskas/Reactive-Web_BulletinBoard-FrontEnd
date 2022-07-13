@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import Posts from "../Posts";
+import { fetchRefreshToken } from '../../../helpers/RefreshTokenInitializer'
 
 
 function PostPopup(props) {
@@ -43,7 +44,7 @@ function PostPopup(props) {
             console.log(postPost)
             console.log(props.setPosts)
             props.setPosts([postToPost, ...props.posts])
-    })
+    }).catch(err => fetchRefreshToken(err))
     }
 
 
