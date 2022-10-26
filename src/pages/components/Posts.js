@@ -33,6 +33,14 @@ function Posts({activeUser, posts, setPosts, commentPopup, setCommentPopup, post
     }
   }
 
+  function getImage() {
+    //console.log("http://localhost:9090/v1/image/" + post.image)
+
+    return axios.get(`http://localhost:9090/v1/image/12e81fe31da3dfe250c6b2a7dd4580c8.webp`)
+
+    
+  }
+
   function postColor(boolean) {
     if (boolean) {
       return "#fffff"
@@ -51,7 +59,7 @@ function Posts({activeUser, posts, setPosts, commentPopup, setCommentPopup, post
         <div key={post.id} className="card" style={{background: postColor(post.isPublic)}}>
           <h2>{post.username}</h2>
           <div>{renderDeletePostButton(post)}</div>
-          <img className="card-image" src={post.image} alt="Image not available"></img>
+          <img className="card-image" src={"http://localhost:9090/v1/image/" + post.image} alt="Image not available"></img>
           <h3>{post.name}</h3>
           <p>{post.content}</p>
           <Comments postId={post.id} activeUser={activeUser}/>
